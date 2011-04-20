@@ -1,4 +1,10 @@
 Supremo::Application.routes.draw do
+  resources :tickets
+
+  resources :comments
+
+  resources :departments
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

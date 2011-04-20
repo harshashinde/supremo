@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+if Department.count == 0
+  Department.create(:name => "HR", :head => 1, :activated => true)
+  Department.create(:name => "IT", :head => 2, :activated => true)
+  Department.create(:name => "Admin", :head => 3, :activated => true)
+end
