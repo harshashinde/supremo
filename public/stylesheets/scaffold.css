@@ -12,9 +12,9 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+a { color: #0093D0;text-decoration: none; }
+a:visited { color: #01719E; }
+a:hover { text-decoration: underline; }
 
 div.field, div.actions {
   margin-bottom: 10px;
@@ -26,8 +26,11 @@ div.field, div.actions {
 
 .field_with_errors {
   padding: 2px;
-  background-color: red;
-  display: table;
+  /*background-color: red;
+  display: table;*/
+  display: inline;
+   color: #D32142;
+    text-shadow: 1px 1px 2px #F49CAC;
 }
 
 #error_explanation {
