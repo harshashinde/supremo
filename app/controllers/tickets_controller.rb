@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  #set_tab :ticket
   # GET /tickets
   # GET /tickets.xml
   def index

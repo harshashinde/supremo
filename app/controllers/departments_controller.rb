@@ -1,4 +1,5 @@
 class DepartmentsController < ApplicationController
+  #set_tab :department
   # GET /departments
   # GET /departments.xml
   def index
