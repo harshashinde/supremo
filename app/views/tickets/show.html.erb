@@ -26,6 +26,15 @@
   <%= @ticket.status %>
 </p>
 
-
+<p>
+  Log Trail:
+<table>
+  <% @audits.each do |a| %>
+  <tr>
+    <td><%= a.comment %></td>
+  </tr>
+  <%end%>
+</table>
+</p>
 <%= link_to 'Edit', edit_ticket_path(@ticket) %> |
 <%= link_to 'Back', tickets_path %>

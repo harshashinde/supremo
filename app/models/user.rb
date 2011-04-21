@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   has_many :tickets, :foreign_key => "owners_id"
   has_one :department
   has_many :comments
+
+  has_associated_audits
+
   
 def full_name
   firstname+" "+lastname
