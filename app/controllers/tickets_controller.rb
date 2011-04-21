@@ -45,6 +45,7 @@ class TicketsController < ApplicationController
   # POST /tickets.xml
   def create
     #@ticket = Ticket.new(params[:ticket])
+    @departments = Department.all
     @ticket = current_user.tickets.new(params[:ticket])
 
     respond_to do |format|
@@ -62,7 +63,7 @@ class TicketsController < ApplicationController
   # PUT /tickets/1.xml
   def update
     @ticket = Ticket.find(params[:id])
-
+    @departments = Department.all
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
