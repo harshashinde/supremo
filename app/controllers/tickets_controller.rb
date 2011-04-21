@@ -49,8 +49,6 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        department_head = User.find_by_department_id(@ticket.department_id)
-        @ticket.update_attribute('assigned_to',department_head.id)
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
       else
@@ -67,8 +65,6 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
-        department_head = User.find_by_department_id(@ticket.department_id)
-        @ticket.update_attribute('assigned_to',department_head.id)
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
         format.xml  { head :ok }
       else
