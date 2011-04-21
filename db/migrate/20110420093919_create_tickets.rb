@@ -3,7 +3,7 @@ class CreateTickets < ActiveRecord::Migration
     create_table :tickets do |t|
       t.string :title
       t.string :description
-      t.integer :owners_id
+      t.integer :owner_id
       t.integer :assigned_to
       t.integer :department_id
       t.integer :status, :default => 0
