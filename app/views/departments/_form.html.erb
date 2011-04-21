@@ -16,8 +16,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :head %><br />
-    <%= f.text_field :head %>
+    <%= f.label :head_id %><br />
+    <%= f.collection_select :head_id,@users,:id,:full_name,{} %>
   </div>
   <div class="field">
     <%= f.label :activated %><br />

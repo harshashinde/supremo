@@ -26,7 +26,7 @@ class DepartmentsController < ApplicationController
   # GET /departments/new.xml
   def new
     @department = Department.new
-
+    @users = User.where("type <> 'Admin' OR type is NULL").select(["id,firstname,lastname"])
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @department }

@@ -7,10 +7,17 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:firstname,:lastname,:department_id
 
-  has_many :tickets
-  has_one :department
+  # user.tickets => Tickets assigned to me
+  has_many :tickets,:foreign_key=>'assigned_to'
+  # user.mytickets => Tickets created by me
+  has_many :mytickets,:foreign_key=>'owner_id',:class_name=>"Ticket"
+  belongs_to :department
   has_many :comments
+  has_many :mydepartments,:class_name => 'Department',:foreign_key=>:head_id
+   has_associated_audits
+
   
+
 def full_name
   firstname+" "+lastname
 end

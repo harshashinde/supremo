@@ -7,6 +7,9 @@ gem 'rails', '3.0.6'
 
 gem 'mysql'
 gem 'devise', '1.3.1'
+gem 'acts_as_audited', '2.0.0.rc7'
+
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
   # POST /comments.xml
   def create
     @comment = Comment.new(params[:comment])
-
+    @comment.audit_comment = "#{current_user.firstname} added comment for Ticket - # #{@comment.ticket_id} "
     respond_to do |format|
       if @comment.save
         format.html { redirect_to(@comment, :notice => 'Comment was successfully created.') }
@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1.xml
   def update
     @comment = Comment.find(params[:id])
-
+    @comment.audit_comment = "#{current_user.firstname} updated comment for Ticket - # #{@comment.ticket_id} "
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         format.html { redirect_to(@comment, :notice => 'Comment was successfully updated.') }

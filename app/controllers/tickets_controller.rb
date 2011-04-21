@@ -17,7 +17,7 @@ class TicketsController < ApplicationController
   def show
     
     @ticket = Ticket.find(params[:id])
-
+    @audits = Audit.find(:all, :conditions => ["auditable_type IN(?) and auditable_id=? or association_id=?",['Ticket','Comment'], @ticket.id, @ticket.id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @ticket }
@@ -44,9 +44,9 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.xml
   def create
-    #@ticket = Ticket.new(params[:ticket])
-    @ticket = current_user.tickets.new(params[:ticket])
-
+    @departments = Department.all
+    @ticket = current_user.mytickets.new(params[:ticket])
+    @ticket.audit_comment = "#{current_user.firstname} opened new Ticket for #{@ticket.department.name}"
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
@@ -62,7 +62,8 @@ class TicketsController < ApplicationController
   # PUT /tickets/1.xml
   def update
     @ticket = Ticket.find(params[:id])
-
+    @departments = Department.all
+    @ticket.audit_comment = "#{current_user.firstname} updated Ticket - # #{@ticket.id} "
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
@@ -85,4 +86,24 @@ class TicketsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+   def assign
+    @ticket = Ticket.find(params[:ticket_id])
+    @ticket.assign_to_user(params[:user_id])
+    if @ticket.save
+      flash[:notice] = 'Succesfully updated the ticket'
+      respond_to do |format|
+        format.html { redirect_to(:back) }
+        format.js
+      end
+    else
+      flash[:alert] = 'Error assigning ticket'
+      respond_to do |format|
+        format.html { redirect_to(:back) }
+        format.js
+      end
+    end
+
+  end
+
 end
