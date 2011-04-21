@@ -3,6 +3,7 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.xml
   def index
+   
     @tickets = Ticket.all
 
     respond_to do |format|
@@ -14,6 +15,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.xml
   def show
+    
     @ticket = Ticket.find(params[:id])
 
     respond_to do |format|
@@ -26,7 +28,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new.xml
   def new
     @ticket = Ticket.new
-
+    @departments = Department.all
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @ticket }
@@ -36,15 +38,19 @@ class TicketsController < ApplicationController
   # GET /tickets/1/edit
   def edit
     @ticket = Ticket.find(params[:id])
+     @departments = Department.all
   end
 
   # POST /tickets
   # POST /tickets.xml
   def create
-    @ticket = Ticket.new(params[:ticket])
+    #@ticket = Ticket.new(params[:ticket])
+    @ticket = current_user.tickets.new(params[:ticket])
 
     respond_to do |format|
       if @ticket.save
+        department_head = User.find_by_department_id(@ticket.department_id)
+        @ticket.update_attribute('assigned_to',department_head.id)
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully created.') }
         format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
       else
@@ -61,6 +67,8 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.update_attributes(params[:ticket])
+        department_head = User.find_by_department_id(@ticket.department_id)
+        @ticket.update_attribute('assigned_to',department_head.id)
         format.html { redirect_to(@ticket, :notice => 'Ticket was successfully updated.') }
         format.xml  { head :ok }
       else

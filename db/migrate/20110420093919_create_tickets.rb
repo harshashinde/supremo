@@ -5,7 +5,8 @@ class CreateTickets < ActiveRecord::Migration
       t.string :description
       t.integer :owners_id
       t.integer :assigned_to
-      t.integer :status
+      t.integer :department_id
+      t.integer :status, :default => 0
 
       t.timestamps
     end

@@ -12,12 +12,17 @@
 
 <p>
   <b>Owners:</b>
-  <%= @ticket.owners_id %>
+  <%= @ticket.owner.firstname %>
 </p>
 
 <p>
-  <b>Assigned to:</b>
-  <%= @ticket.assigned_to %>
+  <b>Assigned to Department:</b>
+  <%= @ticket.department.name %>
+</p>
+
+<p>
+  <b>Department Head:</b>
+  <%= @ticket.assigned.firstname %>
 </p>
 
 <p>
